@@ -3,7 +3,8 @@ package com.erxss.backend.userapp_backend.services.impl;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,13 @@ public class UserServiceImpl implements UserService{
         return (List)this.userRepository.findAll();
     }
 
+     @Override
+     @Transactional(readOnly = true)
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
+
     @Override
     @Transactional
     public Optional<User> findById(Long id) {
@@ -46,4 +54,5 @@ public class UserServiceImpl implements UserService{
         this.userRepository.deleteById(id);   
     }
 
+   
 }
